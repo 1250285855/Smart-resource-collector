@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>瓶瓶安安资源回收前端测试</title>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+	$("#button1").click(function(){
+
+        var id = document.getElementById('input1').value;
+        // alert(id);
+
+        $.get( "http://jyuav.net:8000/control/?&id=" + id + "&isOpen=1", function(data) {
+            alert( "success" );
+            })
+            .done(function() {
+                alert( "second success" );
+            })
+            .fail(function() {
+                // alert( "1");
+                alert(data);
+            })
+            .always(function() {
+                alert( "finished" );
+            });
+       
+	});
+    
+    $("#button2").click(function(){
+
+        var user = $("#input2").val();
+        var password = $("#input3").val();
+
+        $.get("http://jyuav.net:8000/signup/?&id=" + user + "&password=" + password);
+
+        
+
+    })
+    
+});
+</script>
+</head>
+<body>
+
+<!-- <div style="margin: 0 auto;">
+    <form name="input" action="html_form_action.php" method="get">
+        Username: <input type="text" name="user">
+        <input type="submit" value="Submit">
+    </form>
+</div> -->
+<div style="width:100%;">
+    <p>需要打开的垃圾桶id</p>
+    <input id="input1" type="number">
+    <button id="button1" style="width:200px;height:100px;margin:0 auto;">开门</button>
+</div>
+<div style="margin-top: 200px;">
+    <p>请输入帐号和密码注册账户</p>
+    <p>账号</p><input id="input2" type="text">
+    <br>
+    <p>密码</p><input id="input3" type="password">
+    <button id="button2" style="width:200px;height:100px;margin:0 auto;">注册</button>
+</div>
+
+<div>
+    <h1 id="text1"></h1>
+    <h1 id="text2"></h1>
+</div>
+
+</body>
+</html>
