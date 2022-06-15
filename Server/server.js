@@ -8,21 +8,42 @@ const connection = mysql.createConnection({
   database : 'nodejs'  		//所需要连接的数据库的名称（可选）
 });
 connection.connect();
-function editSql(id, is_open){
 
-    var sqlCommand = "UPDATE lajitong SET is_open = ? WHERE id = ?";
-    var sqlParams = [is_open, id];
+// 数据库操作
+function sqlOperate(sqlCommand, sqlParams){
 
-    connection.query(sqlCommand, sqlParams, function(err, result){
+    return new Promise (function(resolve, reject){
+        connection.query(sqlCommand, sqlParams, function(err, result){
 
-        if(err){
+            if(err){
 
-            console.log('[UPDATE ERROR] - ',err.message);
-            // return;
+                console.log('[ERROR] - ',err.message);
+                resolve(-1);
 
-        }
-        
+            }
+            else{
+
+                console.log('[SUCCESS]', result);
+                resolve(result);
+
+            }
+
+        });
     });
+
+}
+
+// 检查是否已经存在
+async function checkExist(table, param, value){
+
+    // TODO: 这行命令在sqlOperate函数中无法成功执行，有可能是因为格式问题
+    // TIME: 2022-06-16
+    var sqlCommand = "SELECT 1 FROM " + table + " WHERE ? = ? limit 1";
+    var sqlParams = [param, value];
+    
+    var returnValue = await sqlOperate(sqlCommand, sqlParams);
+    console.log(returnValue.length);
+    return returnValue.length;
 
 }
 
@@ -33,92 +54,70 @@ server.get('/', (req, res) => {
 
 })
 
-server.get('/login', (req, res) => {
+server.get('/login',async  (req, res) => {
 
     console.log(req.query);
     let{id, password} = req.query;
-    
-    var return_value;
 
-    var sqlCommand = "SELECT 1 FROM users WHERE ? = ? limit 1;";
-    var sqlIdParams = ["id", id];
-    var sqlPasswordParams = ["password", password];
+    if (checkExist("users", "id", id) == 0){
+        resValue = "signup: the id is existed";
+    }
+    else if (checkExist("users", "password", password) == 0){
+        resValue = "signup: the password is existed";
+    }
+    else{
+        resValue = "signup: signup success";
+    }
 
-    connection.query(sqlCommand, sqlIdParams, function(err, result){
-
-        if(err){
-
-            console.log('[SELECT ERROR] - ',err.message);
-            res.send("ERROR");
-        }
-
-        if (result.length == 0){
-            return_value = 0;
-            console.log("There is not this id");
-            res.send("There is not this id");
-        } 
-        else{
-            return_value = 1;
-        }    
-
-        // return return_value;
-
-    })
+    res.send(resValue);
 
 })
 
-server.get('/signup', (req, res) => {
+server.get('/signup',async  (req, res) => {
+
+    var resValue;
 
     console.log(req.query);
     let {id, password} = req.query;
 
-    var sqlCommand = "INSERT INTO users(id, password) VALUES(?, ?);";
-    var sqlParams  = [id, password];
+    if (checkExist("users", "id", id) == 0){
+        resValue = "signup: the id is existed";
+    }
+    else{
+        var sqlCommand = "INSERT INTO users(id, password) VALUES(?, ?);";
+        var sqlParams  = [id, password];
     
-    connection.query(sqlCommand, sqlParams, function(err, result){
+        resValue = await sqlOperate(sqlCommand, sqlParams);
+    } 
 
-        if(err){
-
-            console.log('[INSERT ERROR] - ',err.message);
-
-        }
-
-    });
-
-    
+    res.send(resValue);
 
 });
 
-server.get('/control', (req, res) => {
+server.get('/control',async  (req, res) => {
 
     console.log(req.query);
     let {id, is_open} = req.query;
-    // console.log(id, is_open);
-    editSql(id, is_open);
-    console.log("edit lajitong " + id + " success");
-    res.send("edit lajitong " + id + " success");
+
+    var sqlCommand = "UPDATE garbageCans SET is_open = ? WHERE id = ?";
+    var sqlParams = [is_open, id];
+    
+    var resValue = await sqlOperate(sqlCommand, sqlParams);
+
+    res.send(resValue);
+
 });
 
-server.get('/search', (req, res) => {
+server.get('/search', async (req, res) => {
 
     let {id} = req.query;
-    
-    
 
-    var sqlCommand = "SELECT * FROM lajitong WHERE id = ?;";
+    var sqlCommand = "SELECT * FROM garbageCans WHERE id = ?;";
     var sqlParams = [id];
 
-    connection.query(sqlCommand, sqlParams, function(err, result){
+    var resValue = await sqlOperate(sqlCommand, sqlParams);
 
-        if(err){
-
-            console.log('[SELECT ERROR] - ',err.message);
-            // return;
-
-        }
-        res.send(""+result[0].is_open);
-    });
-    // console.log(Result);
+    res.json(resValue);
 
 })
 
