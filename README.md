@@ -1,8 +1,8 @@
 # Smart-resource-collector
-<div style="text-align:center; margin-bottom: 30px; margin-top: 20px;">
+<div align="center">
   <img src="https://img.shields.io/badge/gitHub-MJU-brightgreen"/>
 </div>
-<br>在此获取：[中文版README](#README.zh-CN.md)
+<br>[中文版README](#README.zh-CN.md)
 <div align="center">  
   <img  src="https://github-readme-streak-stats.herokuapp.com?user=1250285855&theme=onedark&date_format=M%20j%5B%2C%20Y%5D" />
 </div>
@@ -48,7 +48,7 @@ This project is made by two part, server part and client part.
   ### Server
 
   ```sh
-  $ mv /<project path>/Smart-resource-collector/Server
+  $ mv Smart-resource-collector/Server
   $ node server.js
   # run server
   ```
@@ -58,7 +58,7 @@ This project is made by two part, server part and client part.
 
   ### Raspberry-pie
   ```sh
-  $ python /<project path>/Smart-resource-collector/Raspberry-pie/ServoGo.py
+  $ python Smart-resource-collector/Raspberry-pie/ServoGo.py
   ```
 ## Contributing
 Thanks to all team members.
