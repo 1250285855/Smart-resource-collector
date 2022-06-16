@@ -12,7 +12,7 @@ $(document).ready(function(){
         var id = document.getElementById('input1').value;
         // alert(id);
 
-        $.get( "http://jyuav.net:8000/control/?&id=" + id + "&isOpen=1", function(data) {
+        $.get( "http://127.0.0.1:8000/control/?&id=" + id + "&isOpen=1", function(data) {
             alert( "success" );
             })
             .done(function() {
@@ -33,12 +33,18 @@ $(document).ready(function(){
         var user = $("#input2").val();
         var password = $("#input3").val();
 
-        $.get("http://jyuav.net:8000/signup/?&id=" + user + "&password=" + password);
+        $.get("http://127.0.0.1:8000/signup/?&id=" + user + "&password=" + password);      
 
-        
-
-    })
+    });
     
+    $("#button3").click(function(){
+
+        var id = document.getElementById('input4').value;
+        
+        $.get( "http://127.0.0.1:8000/search/?&id=" + id);
+
+    });
+
 });
 </script>
 </head>
@@ -62,7 +68,11 @@ $(document).ready(function(){
     <p>密码</p><input id="input3" type="password">
     <button id="button2" style="width:200px;height:100px;margin:0 auto;">注册</button>
 </div>
-
+<div style="width:100%;">
+    <p>需要查询的垃圾桶id</p>
+    <input id="input4" type="number">
+    <button id="button3" style="width:200px;height:100px;margin:0 auto;">查询</button>
+</div>
 <div>
     <h1 id="text1"></h1>
     <h1 id="text2"></h1>
