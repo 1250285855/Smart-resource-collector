@@ -3,7 +3,7 @@
   <img src="https://img.shields.io/badge/gitHub-MJU-brightgreen"/>
 </div>
 
-[中文版README](#README.zh-CN.md)
+[中文版README](README.zh-CN.md)
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -30,17 +30,17 @@ This project is made by two part, server part and client part.
   # Prepare the environment we need
   ```
 
-  This project use [mysql](https://www.mysql.com), create a database for this project, and change the information of your database on [server.js](#server.js).
+  This project use [mysql](https://www.mysql.com), create a database for this project, and change the information of your database on [server.js](server.js).
 
   ### Client
-  Prepare the web server and set [index.html](#index.html) as your index.
+  Prepare the web server and set [index.html](index.html) as your index.
 
   ### Raspberry-pie
   This project use [Raspberry-pie](https://www.raspberrypi.com), and a server motor with [RaspberryPi Motor Driver Board](https://github.com/emakefun/RaspberryPi-MotorDriveBoard).
 
   make sure your raspberry-pie can connect to internet.
 
-  Prepare python environment in your raspberry-pie, and move [Raspberry-pie](#raspberry-pie) to your raspberry-pie. and make sure the [ServoTest.py](#ServoTest.py) can run successfully.
+  Prepare python environment in your raspberry-pie, and move [Raspberry-pie](Raspberry-pie) to your raspberry-pie. and make sure the [ServoTest.py](ServoTest.py) can run successfully.
 ## Usage
 
   ### Server
