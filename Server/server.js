@@ -24,7 +24,7 @@ function sqlOperate(sqlCommand, sqlParams){
             else{
 
                 console.log('[SUCCESS]', result);
-                resolve(1);
+                resolve(result);
 
             }
 
@@ -94,10 +94,10 @@ server.get('/signup',async  (req, res) => {
 server.get('/control',async  (req, res) => {
 
     console.log(req.query);
-    let {id, is_open} = req.query;
+    let {id, isOpen} = req.query;
 
-    var sqlCommand = "UPDATE garbageCans SET is_open = ? WHERE id = ?";
-    var sqlParams = [is_open, id];
+    var sqlCommand = "UPDATE garbageCans SET isOpen = ? WHERE id = ?";
+    var sqlParams = [isOpen, id];
     
     var resValue = await sqlOperate(sqlCommand, sqlParams);
     
@@ -114,7 +114,7 @@ server.get('/search', async (req, res) => {
 
     var resValue = await sqlOperate(sqlCommand, sqlParams);
 
-    res.json(resValue);
+    res.send(""+resValue[0].isOpen);
 
 })
 
