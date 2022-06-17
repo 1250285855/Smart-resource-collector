@@ -24,7 +24,7 @@ function sqlOperate(sqlCommand, sqlParams){
             else{
 
                 console.log('[SUCCESS]', result);
-                resolve(result);
+                resolve(1);
 
             }
 
@@ -36,13 +36,10 @@ function sqlOperate(sqlCommand, sqlParams){
 // 检查是否已经存在
 async function checkExist(table, param, value){
 
-    // TODO: 这行命令在sqlOperate函数中无法成功执行，有可能是因为格式问题
-    // TIME: 2022-06-16
-    var sqlCommand = "SELECT 1 FROM " + table + " WHERE ? = ? limit 1";
-    var sqlParams = [param, value];
+    var sqlCommand = "SELECT 1 FROM " + table + " WHERE " + param + " = " + value + " limit 1";
     
-    var returnValue = await sqlOperate(sqlCommand, sqlParams);
-    console.log(returnValue.length);
+    var returnValue = await sqlOperate(sqlCommand, []);
+
     return returnValue.length;
 
 }
@@ -103,8 +100,8 @@ server.get('/control',async  (req, res) => {
     var sqlParams = [is_open, id];
     
     var resValue = await sqlOperate(sqlCommand, sqlParams);
-
-    res.send(resValue);
+    
+    res.json(resValue);
 
 });
 
