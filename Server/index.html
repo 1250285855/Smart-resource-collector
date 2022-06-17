@@ -2,81 +2,196 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>瓶瓶安安资源回收前端测试</title>
+<title>瓶瓶安安资源回收器</title>
 <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
 </script>
+</head>
+
 <script>
 $(document).ready(function(){
-	$("#button1").click(function(){
 
-        var id = document.getElementById('input1').value;
-        // alert(id);
+    $("#button1").click(function(){
 
-        $.get( "http://127.0.0.1:8000/control/?&id=" + id + "&isOpen=1", function(data) {
-            alert( "success" );
-            })
-            .done(function() {
-                alert( "second success" );
-            })
-            .fail(function() {
-                // alert( "1");
-                alert(data);
-            })
-            .always(function() {
-                alert( "finished" );
-            });
-       
-	});
-    
+        var idValue = $("#input1").val();
+
+        $.getJSON("http://127.0.0.1:8000/control/?&id=" + idValue + "&isOpen=1", function(data) {
+
+            alert(data);
+
+        })
+        .done (function(data) {
+            alert( "second success" );
+        })
+
+    });
+
     $("#button2").click(function(){
 
-        var user = $("#input2").val();
-        var password = $("#input3").val();
+        var idValue = $("#input2").val();
+        var passwordValue = $("#input3").val();
 
-        $.get("http://127.0.0.1:8000/signup/?&id=" + user + "&password=" + password);      
-
-    });
-    
-    $("#button3").click(function(){
-
-        var id = document.getElementById('input4').value;
+        $.getJSON("http://127.0.0.1:8000/signup/?&id=" + idValue + "&password=" + passwordValue, function(data) {
         
-        $.get( "http://127.0.0.1:8000/search/?&id=" + id);
+            alert(data);
+        
+        });
 
     });
-
 });
 </script>
-</head>
 <body>
 
-<!-- <div style="margin: 0 auto;">
-    <form name="input" action="html_form_action.php" method="get">
-        Username: <input type="text" name="user">
-        <input type="submit" value="Submit">
-    </form>
-</div> -->
-<div style="width:100%;">
-    <p>需要打开的垃圾桶id</p>
-    <input id="input1" type="number">
-    <button id="button1" style="width:200px;height:100px;margin:0 auto;">开门</button>
-</div>
-<div style="margin-top: 200px;">
-    <p>请输入帐号和密码注册账户</p>
-    <p>账号</p><input id="input2" type="text">
-    <br>
-    <p>密码</p><input id="input3" type="password">
-    <button id="button2" style="width:200px;height:100px;margin:0 auto;">注册</button>
-</div>
-<div style="width:100%;">
-    <p>需要查询的垃圾桶id</p>
-    <input id="input4" type="number">
-    <button id="button3" style="width:200px;height:100px;margin:0 auto;">查询</button>
-</div>
-<div>
-    <h1 id="text1"></h1>
-    <h1 id="text2"></h1>
-</div>
+    <div id = "head">
+        <h1>瓶瓶安安资源回收器</h1>
+    </div>
+    <div id = "body">
+        <div id = "body_left">
+            <div id = "body_left_top">
+                <h2>操作</h2>
+                <div id = "body_left_top_left">
+                    <p id = "open_garbage_can">打开垃圾桶</p>
+                    <input type="number" id="input1" placeholder="垃圾桶id">
+                    <button id="button1">打开</button>
+                    <p id = "open_tips"></p>
+                </div>
+                <div id = "body_left_top_right">
+                    <p id = "signup">注册</p>
+                    <input type="text" id="input2" placeholder="用户名">
+                    <input type="password" id="input3" placeholder="密码">
+                    <button id="button2">注册</button>
+                </div>
+                <p id = "signup_tip"></p>
+            </div>
+        </div>
+    </div>
 
 </body>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+#head {
+    width: 100%;
+    height: 100px;
+    background-color: #f5f5f5;
+    color: rgb(95, 187, 41);
+    text-align: center;
+    line-height: 100px;
+    font-size: 30px;
+    font-family: Pingfang SC;
+}
+#body {
+    width: 100%;
+    height: 600px;
+    text-align: center;
+}
+#body_left{
+    width: 400px;
+    height: 600px;
+    background-color:rgb(196, 223, 181);
+    margin: 0 auto;
+}
+#body_left_top_left{
+    text-align: left;
+    font-family: Pingfang SC;
+}
+#body_left_top_right{
+    text-align: left;
+    font-family: Pingfang SC;
+}
+#signup{
+    font-size: 20px;
+    text-align: left;
+    font-family: Pingfang SC;
+}
+h2 {
+    padding-top:20px;
+    font-size: 30px;
+    font-family: Pingfang SC;
+}
+#open_garbage_can{
+    font-size: 20px;
+    font-family: Pingfang SC;
+    text-align: left;
+}
+#input1 {
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+    font-family: Pingfang SC;
+}
+#button1 {
+    width: 100px;
+    height: 30px;
+    background-color: rgb(95, 187, 41);
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: Pingfang SC;
+}
+#button1:hover {
+    border: 1px solid rgb(41, 40, 40);
+}
+#button1:active {
+    background-color: rgb(29, 30, 29);
+    color: #fff;
+}
+#input2 {
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+    font-family: Pingfang SC;
+}
+#input3 {
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+    font-size: 20px;
+    font-family: Pingfang SC;
+}
+#button2 {
+    background-color: rgb(95, 187, 41);
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: Pingfang SC;
+}
+#button2:hover {
+    border: 1px solid rgb(41, 40, 40);
+}
+#button2:active {
+    background-color: rgb(29, 30, 29);
+    color: #fff;
+}
+</style>
+
 </html>
