@@ -15,7 +15,7 @@ $(document).ready(function(){
         var idValue = $("#input1").val();
 
         $.getJSON("http://127.0.0.1:8000/control/?&id=" + idValue + "&isOpen=1", function(data) {
-
+            //TODO: 无法获取后端返回的数据 2022-06-17
             alert(data);
 
         })
@@ -31,7 +31,7 @@ $(document).ready(function(){
         var passwordValue = $("#input3").val();
 
         $.getJSON("http://127.0.0.1:8000/signup/?&id=" + idValue + "&password=" + passwordValue, function(data) {
-        
+            //TODO: 无法获取后端返回的数据 2022-06-17
             alert(data);
         
         });
